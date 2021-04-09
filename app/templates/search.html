@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function () {
+            $('#group').hide();
+            $('#subgroup').hide();
+            $("#criteria").change(function () {
+                let val = $(this).val();
+                if (val === "group") {
+                    $('#search').hide();
+                    $('#subgroup').hide();
+                    $('#group').show();
+                } else if (val === "subgroup") {
+                    $('#search').hide();
+                    $('#group').hide();
+                    $('#subgroup').show();
+                }
+                else {
+                    $('#group').hide();
+                    $('#subgroup').hide();
+                    $('#search').show();
+                }
+            });
+        });
+    </script>
+    <a href="/">HOME</a>
+    <br>
+    <br>
+    <form action="/search", method="post">
+        <label for="criteria">Choose a search criteria:</label>
+        <select name="criteria" id="criteria">
+            <option value="uuid">UUID</option>
+            <option value="name">Name</option>
+            <option value="group">Group</option>
+            <option value="subgroup">Subgroup</option>
+            <option value="bp_number">Blueprint #</option>
+            <option value="creator">Creator</option>
+        </select>
+        <input id="search" type="text", name="search">
+        <select name="group" id="group">
+            {% for group in groups %}
+                <option value="{{ group.id }}">{{ group }}</option>
+            {% endfor %}
+        </select>
+        <select name="subgroup" id="subgroup">
+            {% for subgroup in subgroups %}
+                <option value="{{ subgroup.id }}">{{ subgroup }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit", value="Submit">
+    </form>
+    {% for item in items %}
+        <a href="/items/{{ item.id }}">{{ item.name }}</a><br>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Item {{ item.name }}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        $(document).ready(function () {
+            $('#print').on('click', function () {
+                $('#print').hide();
+                print();
+            });
+        });
+    </script>
+    <a href="/">HOME</a>
+    <br>
+    <br>
+    <table style="width:50%">
+        <tr>
+            <th>Параметър</th>
+            <th>Стойност</th>
+        </tr>
+        <tr>
+            <td>Означение артикул</td>
+            <td>{{ item.uuid }}</td>
+        </tr>
+        <tr>
+            <td>Наименование</td>
+            <td>{{ item.name }}</td>
+        </tr>
+        <tr>
+            <td>Група</td>
+            <td>{{ item.sub_group.group }}</td>
+        </tr>
+        <tr>
+            <td>Подгрупа</td>
+            <td>{{ item.sub_group }}</td>
+        </tr>
+        <tr>
+            <td>3D файл</td>
+            <td>{{ item.three_d_file }}</td>
+        </tr>
+        <tr>
+            <td>Материал</td>
+            <td>{{ item.material }}</td>
+        </tr>
+
+        {% for bp in blueprints %}
+        <tr>
+            <td>Чертеж {{ loop.index }}</td>
+            <td>{{ bp.number }}</td>
+        </tr>
+        <tr>
+            <td>Чертеж {{ loop.index }} формат</td>
+            <td>{{ bp.format }}</td>
+        </tr>
+        <tr>
+            <td>Файл чертеж {{ loop.index }}</td>
+            <td>{{ bp.file }}</td>
+        </tr>
+        <tr>
+            <td>Разработил чертеж {{ loop.index }}</td>
+            <td>{{ bp.created_by }}</td>
+        </tr>
+        <tr>
+            <td>Дата разработил чертеж {{ loop.index }}</td>
+            <td>{{ bp.created_on }}</td>
+        </tr>
+        <tr>
+            <td>Проверил чертеж {{ loop.index }}</td>
+            <td>{{ bp.checked_by }}</td>
+        </tr>
+        <tr>
+            <td>Дата проверил чертеж {{ loop.index }}</td>
+            <td>{{ bp.checked_on }}</td>
+        </tr>
+        <tr>
+            <td>Технолог чертеж {{ loop.index }}</td>
+            <td>{{ bp.technology_by }}</td>
+        </tr>
+            <tr>
+            <td>Дата технолог чертеж {{ loop.index }}</td>
+            <td>{{ bp.technology_on }}</td>
+        </tr>
+        <tr>
+            <td>Нормоконтрол чертеж {{ loop.index }}</td>
+            <td>{{ bp.norm_control_by }}</td>
+        </tr>
+        <tr>
+            <td>Дата н.контрол чертеж {{ loop.index }}</td>
+            <td>{{ bp.norm_control_on }}</td>
+        </tr>
+        <tr>
+            <td>Утвърдил чертеж {{ loop.index }}</td>
+            <td>{{ bp.accepted_by }}</td>
+        </tr>
+            <tr>
+            <td>Дата утвърдил чертеж {{ loop.index }}</td>
+            <td>{{ bp.accepted_on }}</td>
+        </tr>
+        {% endfor %}
+
+        {% for change in changes %}
+        <tr>
+            <td>Изменение {{ loop.index }}</td>
+            <td>{{ change.change }}</td>
+        </tr>
+        <tr>
+            <td>Описание на изменение {{ loop.index }}</td>
+            <td>{{ change.description }}</td>
+        </tr>
+        <tr>
+            <td>Предложил изменение {{ loop.index }}</td>
+            <td>{{ change.person }}</td>
+        </tr>
+        <tr>
+            <td>Дата на изменение {{ loop.index }}</td>
+            <td>{{ change.date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <button id="print">Print</button>
+</body>
+</html>
